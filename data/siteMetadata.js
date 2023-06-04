@@ -5,9 +5,9 @@ const siteMetadata = {
   description: 'A central place to share my writings on various topics.',
   language: 'en-us',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://tailwind-nextjs-starter-blog.vercel.app',
+  siteUrl: 'https://polywrites.com',
   siteRepo: 'https://github.com/EpistemicPolymath/polywrites-writing',
-  siteLogo: '/static/images/logo.png',
+  siteLogo: '/static/images/polypfpcrop.png',
   image: '/static/images/polypfpcrop.png',
   socialBanner: '/static/images/twitter-card-poly-gradient-feint.png.png',
   email: 'polymathical5@gmail.com',
