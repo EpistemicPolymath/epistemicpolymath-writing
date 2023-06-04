@@ -9,7 +9,7 @@ const siteMetadata = {
   siteRepo: 'https://github.com/EpistemicPolymath/polywrites-writing',
   siteLogo: '/static/images/logo.png',
   image: '/static/images/avatar.png',
-  socialBanner: '/static/images/twitter-card-poly-gradient-feint.png.png',
+  socialBanner: '/static/images/twitter-card-poly-gradient-feint.png',
   email: 'polymathical5@gmail.com',
   github: 'https://github.com/EpistemicPolymath',
   twitter: 'https://twitter.com/polymathical_',
