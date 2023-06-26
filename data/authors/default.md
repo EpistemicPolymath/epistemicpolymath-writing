@@ -1,6 +1,6 @@
 ---
 name: Jenn Tillman, Poly
-avatar: /static/images/polypfpcrop.png
+avatar: /static/images/avatar.png
 occupation: Twitch Streamer, Quality Assurance and Accessibility Tester, and Passionate Writer and Learner
 company: EpistemicPolymath
 email: epistemicpolymath@gmail.com
