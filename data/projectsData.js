@@ -10,9 +10,16 @@ const projectsData = [
   },
   {
     title: 'EpistemicPolymath on Youtube',
-    description: `Poly is working on storytelling driven content on Youtube. She is interested in making podcasts and video content on mental health, disability issues, and her various learning pursuits.`,
+    description: `Poly is working on storytelling driven content on Youtube. She is interested in making podcasts and video content on 
+    mental health, disability issues, and her various learning pursuits.`,
     imgSrc: '/static/images/youtube.png',
     href: 'https://www.youtube.com/@EpistemicPolymath',
+  },
+  {
+    title: 'EpistemicPolymath on GitHub',
+    description: `Poly is always working on various side projects and sharing them on GitHub. She also works on projects using Pipedream (Workflow and APIs Integration) and FireBot (Powerful Stream Bot).`,
+    imgSrc: '/static/images/github.png',
+    href: 'https://www.github.com/EpistemicPolymath',
   },
 ]
 
