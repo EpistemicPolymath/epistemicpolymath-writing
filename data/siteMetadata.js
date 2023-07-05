@@ -1,12 +1,12 @@
 const siteMetadata = {
   title: 'PolyWrites...',
   author: 'Jenn Tillman',
-  headerTitle: 'PolyWrites',
+  headerTitle: 'EpistemicPolymath',
   description: 'A central place to share my writings on various topics.',
   language: 'en-us',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://polywrites.com',
-  siteRepo: 'https://github.com/EpistemicPolymath/polywrites-writing',
+  siteUrl: 'https://epistemicpolymath.com',
+  siteRepo: 'https://github.com/EpistemicPolymath/epistemicpolymath-writing',
   siteLogo: '/static/images/logo.png',
   image: '/static/images/avatar.png',
   socialBanner: '/static/images/twitter-card-poly-gradient-feint.png',
