@@ -1,5 +1,5 @@
 const siteMetadata = {
-  title: 'PolyWrites...',
+  title: 'Poly',
   author: 'Jenn Tillman',
   headerTitle: 'EpistemicPolymath',
   description: 'A central place to share my writings on various topics.',
