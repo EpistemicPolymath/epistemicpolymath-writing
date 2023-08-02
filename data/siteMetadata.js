@@ -1,7 +1,7 @@
 const siteMetadata = {
-  title: 'Poly',
+  title: 'EpistemicPolymath',
   author: 'Jenn Tillman',
-  headerTitle: 'EpistemicPolymath',
+  headerTitle: 'Poly',
   description: 'A central place to share my writings on various topics.',
   language: 'en-us',
   theme: 'system', // system, dark or light
@@ -10,7 +10,7 @@ const siteMetadata = {
   siteLogo: '/static/images/logo.png',
   image: '/static/images/avatar.png',
   socialBanner: '/static/images/twitter-card-poly-gradient-feint.png',
-  email: 'polymathical5@gmail.com',
+  email: 'epistemicpolymath@gmail.com',
   github: 'https://github.com/EpistemicPolymath',
   twitter: 'https://twitter.com/polymathical_',
   //facebook: 'https://facebook.com',
