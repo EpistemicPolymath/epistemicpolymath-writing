@@ -28,6 +28,7 @@ module.exports = {
         sans: ['InterVariable', ...defaultTheme.fontFamily.sans],
       },
       colors: {
+        // https://tailwindcss.com/docs/customizing-colors#using-custom-colors
         primary: {
           50: `#ecfeff`,
           100: `#cffafe`,
