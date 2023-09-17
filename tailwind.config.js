@@ -40,6 +40,20 @@ module.exports = {
           700: `#0891b2`,
           800: `#155e75`,
           900: `#164e63`,
+          950: `#083344`,
+        },
+        lightblue: {
+          50: `#E0F7FA`,
+          100: `#D1F8FF`,
+          200: `#C2FBFE`,
+          300: `#B3FCFD`,
+          400: `#A4FDFC`,
+          500: `#95FEFB`,
+          600: `#86FFFA`,
+          700: `#77FFE9`,
+          800: `#68FFE8`,
+          900: `#59FFE7`,
+          950: `#4AFFE6`,
         },
         gray: colors.neutral,
       },
@@ -116,11 +130,11 @@ module.exports = {
           css: {
             color: theme('colors.gray.300'),
             a: {
-              color: theme('colors.primary.500'),
+              color: theme('colors.lightblue.500'),
               '&:hover': {
-                color: `${theme('colors.primary.400')} !important`,
+                color: `${theme('colors.lightblue.400')} !important`,
               },
-              code: { color: theme('colors.primary.400') },
+              code: { color: theme('colors.lightblue.400') },
             },
             h1: {
               fontWeight: '700',
