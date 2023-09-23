@@ -27,22 +27,26 @@ module.exports = {
       fontFamily: {
         sans: ['InterVariable', ...defaultTheme.fontFamily.sans],
       },
+      dropShadow: {
+        at: `0 0.75px 0.75px rgba(0,0,0,0.8)`,
+      },
       colors: {
         // https://tailwindcss.com/docs/customizing-colors#using-custom-colors
+        // Light Mode: Black Text and White Background, Dark Mode: Neurtrals and LightBlue
+        // primary: {
+        //   50: `#ecfeff`,
+        //   100: `#cffafe`,
+        //   200: `#bae6fd`,
+        //   300: `#a5f3fc`,
+        //   400: `#67e8f9`,
+        //   500: `#7dd3fc`,
+        //   600: `#06b6d4`,
+        //   700: `#0891b2`,
+        //   800: `#155e75`,
+        //   900: `#164e63`,
+        //   950: `#083344`,
+        // },
         primary: {
-          50: `#ecfeff`,
-          100: `#cffafe`,
-          200: `#bae6fd`,
-          300: `#a5f3fc`,
-          400: `#67e8f9`,
-          500: `#7dd3fc`,
-          600: `#06b6d4`,
-          700: `#0891b2`,
-          800: `#155e75`,
-          900: `#164e63`,
-          950: `#083344`,
-        },
-        lightblue: {
           50: `#E0F7FA`,
           100: `#D1F8FF`,
           200: `#C2FBFE`,
@@ -56,6 +60,7 @@ module.exports = {
           950: `#4AFFE6`,
         },
         gray: colors.neutral,
+        black: `#0a0a0a`,
       },
       typography: (theme) => ({
         DEFAULT: {
@@ -130,11 +135,11 @@ module.exports = {
           css: {
             color: theme('colors.gray.300'),
             a: {
-              color: theme('colors.lightblue.500'),
+              color: theme('colors.primary.500'),
               '&:hover': {
-                color: `${theme('colors.lightblue.400')} !important`,
+                color: `${theme('colors.primary.400')} !important`,
               },
-              code: { color: theme('colors.lightblue.400') },
+              code: { color: theme('colors.primary.400') },
             },
             h1: {
               fontWeight: '700',
