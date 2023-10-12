@@ -1,5 +1,6 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 const colors = require('tailwindcss/colors')
+const plugin = require('tailwindcss/plugin')
 
 module.exports = {
   experimental: {
@@ -27,25 +28,19 @@ module.exports = {
       fontFamily: {
         sans: ['InterVariable', ...defaultTheme.fontFamily.sans],
       },
+      // https://www.hyperui.dev/blog/text-shadow-with-tailwindcss
+      textShadow: {
+        sm: '0 1px 2px var(--tw-shadow-color)',
+        DEFAULT: '0 2px 4px var(--tw-shadow-color)',
+        lg: '0 8px 16px var(--tw-shadow-color)',
+      },
+      // https://tailwindcss.com/docs/drop-shadow#basic-usage
       dropShadow: {
         at: `0 0.75px 0.75px rgba(0,0,0,0.8)`,
       },
       colors: {
         // https://tailwindcss.com/docs/customizing-colors#using-custom-colors
-        // Light Mode: Black Text and White Background, Dark Mode: Neurtrals and LightBlue
-        // primary: {
-        //   50: `#ecfeff`,
-        //   100: `#cffafe`,
-        //   200: `#bae6fd`,
-        //   300: `#a5f3fc`,
-        //   400: `#67e8f9`,
-        //   500: `#7dd3fc`,
-        //   600: `#06b6d4`,
-        //   700: `#0891b2`,
-        //   800: `#155e75`,
-        //   900: `#164e63`,
-        //   950: `#083344`,
-        // },
+        //Accessibility and Tailwin CSS Colors: https://colour-a11y.vercel.app/
         primary: {
           50: `#E0F7FA`,
           100: `#D1F8FF`,
@@ -53,21 +48,20 @@ module.exports = {
           300: `#B3FCFD`,
           400: `#A4FDFC`,
           500: `#95FEFB`,
-          600: `#86FFFA`,
+          600: `#06b6d4`,
           700: `#77FFE9`,
           800: `#68FFE8`,
           900: `#59FFE7`,
           950: `#4AFFE6`,
         },
         gray: colors.neutral,
-        black: `#0a0a0a`,
       },
       typography: (theme) => ({
         DEFAULT: {
           css: {
             color: theme('colors.gray.700'),
             a: {
-              color: theme('colors.primary.500'),
+              color: `${theme('colors.gray.900 textShadow')} !important`,
               '&:hover': {
                 color: `${theme('colors.primary.600')} !important`,
               },
@@ -94,7 +88,7 @@ module.exports = {
               backgroundColor: theme('colors.gray.800'),
             },
             code: {
-              color: theme('colors.pink.500'),
+              color: theme('colors.sky.500'),
               backgroundColor: theme('colors.gray.100'),
               paddingLeft: '4px',
               paddingRight: '4px',
@@ -137,7 +131,7 @@ module.exports = {
             a: {
               color: theme('colors.primary.500'),
               '&:hover': {
-                color: `${theme('colors.primary.400')} !important`,
+                color: `${theme('colors.primary.600')} !important`,
               },
               code: { color: theme('colors.primary.400') },
             },
@@ -195,5 +189,18 @@ module.exports = {
       }),
     },
   },
-  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
+    plugin(function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          'text-shadow': (value) => ({
+            textShadow: value,
+          }),
+        },
+        { values: theme('textShadow') }
+      )
+    }),
+  ],
 }
