@@ -1,24 +1,20 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
+// @ts-check
+const { fontFamily } = require('tailwindcss/defaultTheme')
 const colors = require('tailwindcss/colors')
-const plugin = require('tailwindcss/plugin')
 
+/** @type {import("tailwindcss/types").Config } */
 module.exports = {
-  experimental: {
-    optimizeUniversalDefaults: true,
-  },
   content: [
-    './pages/**/*.js',
-    './components/**/*.js',
-    './layouts/**/*.js',
-    './lib/**/*.js',
+    './node_modules/pliny/**/*.js',
+    './app/**/*.{js,ts,jsx,tsx}',
+    './pages/**/*.{js,ts,tsx}',
+    './components/**/*.{js,ts,tsx}',
+    './layouts/**/*.{js,ts,tsx}',
     './data/**/*.mdx',
   ],
   darkMode: 'class',
   theme: {
     extend: {
-      spacing: {
-        '9/16': '56.25%',
-      },
       lineHeight: {
         11: '2.75rem',
         12: '3rem',
@@ -26,7 +22,7 @@ module.exports = {
         14: '3.5rem',
       },
       fontFamily: {
-        sans: ['InterVariable', ...defaultTheme.fontFamily.sans],
+        sans: ['var(--font-space-grotesk)', ...fontFamily.sans],
       },
       // https://www.hyperui.dev/blog/text-shadow-with-tailwindcss
       textShadow: {
@@ -54,153 +50,46 @@ module.exports = {
           900: `#59FFE7`,
           950: `#4AFFE6`,
         },
-        gray: colors.neutral,
+        gray: colors.gray,
       },
-      typography: (theme) => ({
+      typography: ({ theme }) => ({
         DEFAULT: {
           css: {
-            color: theme('colors.gray.700'),
-            a: {
-              color: `${theme('colors.gray.900 textShadow')} !important`,
-              '&:hover': {
-                color: `${theme('colors.primary.600')} !important`,
-              },
-              code: { color: theme('colors.primary.400') },
-            },
-            h1: {
-              fontWeight: '700',
-              letterSpacing: theme('letterSpacing.tight'),
-              color: theme('colors.gray.900'),
-            },
-            h2: {
-              fontWeight: '700',
-              letterSpacing: theme('letterSpacing.tight'),
-              color: theme('colors.gray.900'),
-            },
-            h3: {
-              fontWeight: '600',
-              color: theme('colors.gray.900'),
-            },
-            'h4,h5,h6': {
-              color: theme('colors.gray.900'),
-            },
-            pre: {
-              backgroundColor: theme('colors.gray.800'),
-            },
-            code: {
-              color: theme('colors.sky.500'),
-              backgroundColor: theme('colors.gray.100'),
-              paddingLeft: '4px',
-              paddingRight: '4px',
-              paddingTop: '2px',
-              paddingBottom: '2px',
-              borderRadius: '0.25rem',
-            },
-            'code::before': {
-              content: 'none',
-            },
-            'code::after': {
-              content: 'none',
-            },
-            details: {
-              backgroundColor: theme('colors.gray.100'),
-              paddingLeft: '4px',
-              paddingRight: '4px',
-              paddingTop: '2px',
-              paddingBottom: '2px',
-              borderRadius: '0.25rem',
-            },
-            hr: { borderColor: theme('colors.gray.200') },
-            'ol li::marker': {
-              fontWeight: '600',
-              color: theme('colors.gray.500'),
-            },
-            'ul li::marker': {
-              backgroundColor: theme('colors.gray.500'),
-            },
-            strong: { color: theme('colors.gray.600') },
-            blockquote: {
-              color: theme('colors.gray.900'),
-              borderLeftColor: theme('colors.gray.200'),
-            },
-          },
-        },
-        dark: {
-          css: {
-            color: theme('colors.gray.300'),
             a: {
               color: theme('colors.primary.500'),
               '&:hover': {
-                color: `${theme('colors.primary.600')} !important`,
+                color: `${theme('colors.primary.600')}`,
               },
               code: { color: theme('colors.primary.400') },
             },
-            h1: {
+            'h1,h2': {
               fontWeight: '700',
               letterSpacing: theme('letterSpacing.tight'),
-              color: theme('colors.gray.100'),
-            },
-            h2: {
-              fontWeight: '700',
-              letterSpacing: theme('letterSpacing.tight'),
-              color: theme('colors.gray.100'),
             },
             h3: {
               fontWeight: '600',
-              color: theme('colors.gray.100'),
-            },
-            'h4,h5,h6': {
-              color: theme('colors.gray.100'),
-            },
-            pre: {
-              backgroundColor: theme('colors.gray.800'),
             },
             code: {
-              backgroundColor: theme('colors.gray.800'),
+              color: theme('colors.sky.500'),
             },
-            details: {
-              backgroundColor: theme('colors.gray.800'),
-            },
-            hr: { borderColor: theme('colors.gray.700') },
-            'ol li::marker': {
-              fontWeight: '600',
-              color: theme('colors.gray.400'),
-            },
-            'ul li::marker': {
-              backgroundColor: theme('colors.gray.400'),
-            },
-            strong: { color: theme('colors.gray.100') },
-            thead: {
-              th: {
-                color: theme('colors.gray.100'),
+          },
+        },
+        invert: {
+          css: {
+            a: {
+              color: theme('colors.primary.500'),
+              '&:hover': {
+                color: `${theme('colors.primary.400')}`,
               },
+              code: { color: theme('colors.primary.400') },
             },
-            tbody: {
-              tr: {
-                borderBottomColor: theme('colors.gray.700'),
-              },
-            },
-            blockquote: {
+            'h1,h2,h3,h4,h5,h6': {
               color: theme('colors.gray.100'),
-              borderLeftColor: theme('colors.gray.700'),
             },
           },
         },
       }),
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
-    plugin(function ({ matchUtilities, theme }) {
-      matchUtilities(
-        {
-          'text-shadow': (value) => ({
-            textShadow: value,
-          }),
-        },
-        { values: theme('textShadow') }
-      )
-    }),
-  ],
+  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
 }
