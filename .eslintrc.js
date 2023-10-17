@@ -18,7 +18,7 @@ module.exports = {
     'next/core-web-vitals',
   ],
   parserOptions: {
-    project: true,
+    project: './tsconfig.json',
     tsconfigRootDir: __dirname,
   },
   rules: {
