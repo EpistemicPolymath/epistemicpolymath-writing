@@ -75,9 +75,9 @@ export default function Home({ posts }) {
           <Link
             href="/writings"
             className="text-gray-900 drop-shadow-at hover:text-primary-600 dark:text-primary-500 dark:hover:text-primary-600"
-            aria-label="All posts"
+            aria-label="All writings"
           >
-            All Posts &rarr;
+            All Writings &rarr;
           </Link>
         </div>
       )}

@@ -24,7 +24,7 @@ export default function WritingsPage() {
       posts={posts}
       initialDisplayPosts={initialDisplayPosts}
       pagination={pagination}
-      title="All Posts"
+      title="All Writings"
     />
   )
 }

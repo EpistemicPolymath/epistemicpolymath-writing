@@ -88,14 +88,14 @@ export default function ListLayoutWithTags({
             <div className="py-4 px-6">
               {pathname.startsWith('/writings') ? (
                 <h3 className="dark:text-primary-500 text-gray-900 drop-shadow-at font-bold uppercase">
-                  All Posts
+                  All Writings
                 </h3>
               ) : (
                 <Link
                   href={`/writings`}
                   className="font-bold uppercase text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-600"
                 >
-                  All Posts
+                  All Writings
                 </Link>
               )}
               <ul>
