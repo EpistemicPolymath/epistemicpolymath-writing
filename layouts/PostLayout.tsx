@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { CoreContent } from 'pliny/utils/contentlayer'
-import type { Writings, Authors } from 'contentlayer/generated'
+import type { Blog, Authors } from 'contentlayer/generated'
 import Comments from '@/components/Comments'
 import Link from '@/components/Link'
 import PageTitle from '@/components/PageTitle'
@@ -22,7 +22,7 @@ const postDateTemplate: Intl.DateTimeFormatOptions = {
 }
 
 interface LayoutProps {
-  content: CoreContent<Writings>
+  content: CoreContent<Blog>
   authorDetails: CoreContent<Authors>[]
   next?: { path: string; title: string }
   prev?: { path: string; title: string }
@@ -79,7 +79,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                           {author.twitter && (
                             <Link
                               href={author.twitter}
-                              className="text-gray-900 drop-shadow-at hover:text-primary-600 dark:text-primary-500 dark:hover:text-primary-600"
+                              className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
                             >
                               {author.twitter.replace('https://twitter.com/', '@')}
                             </Link>
@@ -130,7 +130,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                         <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
                           Previous Article
                         </h2>
-                        <div className="text-gray-900 drop-shadow-at hover:text-primary-600 dark:text-primary-500 dark:hover:text-primary-600">
+                        <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
                           <Link href={`/${prev.path}`}>{prev.title}</Link>
                         </div>
                       </div>
@@ -140,7 +140,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                         <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
                           Next Article
                         </h2>
-                        <div className="text-gray-900 drop-shadow-at hover:text-primary-600 dark:text-primary-500 dark:hover:text-primary-600">
+                        <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
                           <Link href={`/${next.path}`}>{next.title}</Link>
                         </div>
                       </div>
@@ -151,10 +151,10 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               <div className="pt-4 xl:pt-8">
                 <Link
                   href={`/${basePath}`}
-                  className="text-gray-900 drop-shadow-at hover:text-primary-600 dark:text-primary-500 dark:hover:text-primary-600"
-                  aria-label="Back to the writings"
+                  className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                  aria-label="Back to the blog"
                 >
-                  &larr; Back to the writings
+                  &larr; Back to the blog
                 </Link>
               </div>
             </footer>

@@ -6,14 +6,14 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 // You might need to insert additional domains in script-src if you are using external services
 const ContentSecurityPolicy = `
-  default-src 'self' https://disqus.com https://c.disquscdn.com;
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app https://epistemicpolymath.disqus.com *.google.com youtu.be youtube.com analytics.umami.is;
+  default-src 'self';
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app analytics.umami.is;
   style-src 'self' 'unsafe-inline';
   img-src * blob: data:;
   media-src *.s3.amazonaws.com;
   connect-src *;
   font-src 'self';
-  frame-src giscus.app disqus.com youtube.com *.google.com youtu.be
+  frame-src giscus.app
 `
 
 const securityHeaders = [
@@ -66,7 +66,12 @@ module.exports = () => {
       dirs: ['app', 'components', 'layouts', 'scripts'],
     },
     images: {
-      domains: ['picsum.photos'],
+      remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: 'picsum.photos',
+        },
+      ],
     },
     async headers() {
       return [
