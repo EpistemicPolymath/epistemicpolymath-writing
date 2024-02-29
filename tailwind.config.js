@@ -1,6 +1,7 @@
 // @ts-check
 const { fontFamily } = require('tailwindcss/defaultTheme')
 const colors = require('tailwindcss/colors')
+const plugin = require('tailwindcss/plugin')
 
 /** @type {import("tailwindcss/types").Config } */
 module.exports = {
@@ -24,8 +25,32 @@ module.exports = {
       fontFamily: {
         sans: ['var(--font-space-grotesk)', ...fontFamily.sans],
       },
+      // https://www.hyperui.dev/blog/text-shadow-with-tailwindcss
+      textShadow: {
+        sm: '0 1px 2px var(--tw-shadow-color)',
+        DEFAULT: '0 2px 4px var(--tw-shadow-color)',
+        lg: '0 8px 16px var(--tw-shadow-color)',
+      },
+      // https://tailwindcss.com/docs/drop-shadow#basic-usage
+      dropShadow: {
+        at: `0 0.50px 0.50px rgba(0,0,0,0.8)`,
+      },
       colors: {
-        primary: colors.pink,
+        // https://tailwindcss.com/docs/customizing-colors#using-custom-colors
+        //Accessibility and Tailwin CSS Colors: https://colour-a11y.vercel.app/
+        primary: {
+          50: `#E0F7FA`,
+          100: `#D1F8FF`,
+          200: `#C2FBFE`,
+          300: `#B3FCFD`,
+          400: `#A4FDFC`,
+          500: `#95FEFB`,
+          600: `#06b6d4`,
+          700: `#77FFE9`,
+          800: `#68FFE8`,
+          900: `#59FFE7`,
+          950: `#4AFFE6`,
+        },
         gray: colors.gray,
       },
       typography: ({ theme }) => ({
@@ -46,7 +71,7 @@ module.exports = {
               fontWeight: '600',
             },
             code: {
-              color: theme('colors.indigo.500'),
+              color: theme('colors.sky.500'),
             },
           },
         },
@@ -67,5 +92,12 @@ module.exports = {
       }),
     },
   },
-  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+  plugins: [
+    // https://dev.to/gokhantaskan/adding-a-tailwindcss-light-only-variant-in-a-few-seconds-using-vue-3-and-vueuse-43al
+    plugin(({ addVariant }) => {
+      addVariant('light', `.light &`)
+    }),
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
+  ],
 }
