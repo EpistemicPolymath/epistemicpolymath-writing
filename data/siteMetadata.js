@@ -3,7 +3,7 @@ const siteMetadata = {
   title: 'EpistemicPolymath',
   author: 'Jenn Tillman',
   headerTitle: 'Poly',
-  description: 'A central place to share my writings on various topics.',
+  description: 'A central place to share our writings on various topics.',
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://epistemicpolymath.com',
