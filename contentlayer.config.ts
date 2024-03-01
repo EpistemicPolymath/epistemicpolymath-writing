@@ -23,6 +23,7 @@ import siteMetadata from './data/siteMetadata'
 import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer.js'
 
 const root = process.cwd()
+const isProduction = process.env.NODE_ENV === 'production'
 
 const computedFields: ComputedFields = {
   readingTime: { type: 'json', resolve: (doc) => readingTime(doc.body.raw) },
@@ -42,12 +43,12 @@ const computedFields: ComputedFields = {
 }
 
 /**
- * Count the occurrences of all tags across writings posts and write to json file
+ * Count the occurrences of all tags across blog posts and write to json file
  */
-function createTagCount(allWritings) {
+function createTagCount(allBlogs) {
   const tagCount: Record<string, number> = {}
-  allWritings.forEach((file) => {
-    if (file.tags && file.draft !== true) {
+  allBlogs.forEach((file) => {
+    if (file.tags && (!isProduction || file.draft !== true)) {
       file.tags.forEach((tag) => {
         const formattedTag = GithubSlugger.slug(tag)
         if (formattedTag in tagCount) {
@@ -61,20 +62,20 @@ function createTagCount(allWritings) {
   writeFileSync('./app/tag-data.json', JSON.stringify(tagCount))
 }
 
-function createSearchIndex(allWritings) {
+function createSearchIndex(allBlogs) {
   if (
     siteMetadata?.search?.provider === 'kbar' &&
     siteMetadata.search.kbarConfig.searchDocumentsPath
   ) {
     writeFileSync(
       `public/${siteMetadata.search.kbarConfig.searchDocumentsPath}`,
-      JSON.stringify(allCoreContent(sortPosts(allWritings)))
+      JSON.stringify(allCoreContent(sortPosts(allBlogs)))
     )
     console.log('Local search index generated...')
   }
 }
 
-export const Writings = defineDocumentType(() => ({
+export const Blog = defineDocumentType(() => ({
   name: 'Writings',
   filePathPattern: 'writings/**/*.mdx',
   contentType: 'mdx',
@@ -85,7 +86,7 @@ export const Writings = defineDocumentType(() => ({
     lastmod: { type: 'date' },
     draft: { type: 'boolean' },
     summary: { type: 'string' },
-    images: { type: 'list', of: { type: 'string' } },
+    images: { type: 'json' },
     authors: { type: 'list', of: { type: 'string' } },
     layout: { type: 'string' },
     bibliography: { type: 'string' },
@@ -97,14 +98,13 @@ export const Writings = defineDocumentType(() => ({
       type: 'json',
       resolve: (doc) => ({
         '@context': 'https://schema.org',
-        '@type': 'WritingsPosting',
+        '@type': 'BlogPosting',
         headline: doc.title,
         datePublished: doc.date,
         dateModified: doc.lastmod || doc.date,
         description: doc.summary,
         image: doc.images ? doc.images[0] : siteMetadata.socialBanner,
         url: `${siteMetadata.siteUrl}/${doc._raw.flattenedPath}`,
-        author: doc.authors,
       }),
     },
   },
@@ -130,7 +130,7 @@ export const Authors = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: 'data',
-  documentTypes: [Writings, Authors],
+  documentTypes: [Blog, Authors],
   mdx: {
     cwd: process.cwd(),
     remarkPlugins: [

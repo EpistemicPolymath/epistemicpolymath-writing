@@ -15,7 +15,15 @@ const CustomLink = ({ href, ...rest }: LinkProps & AnchorHTMLAttributes<HTMLAnch
     return <a href={href} {...rest} />
   }
 
-  return <a target="_blank" rel="noopener noreferrer" href={href} {...rest} />
+  return (
+    <a
+      target="_blank"
+      rel="noopener noreferrer"
+      className="light:text-primary-950 light:drop-shadow-at light:hover:text-primary-600 dark:text-primary-500 dark:hover:text-primary-50"
+      href={href}
+      {...rest}
+    />
+  )
 }
 
 export default CustomLink

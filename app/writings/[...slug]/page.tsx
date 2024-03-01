@@ -4,16 +4,16 @@ import 'katex/dist/katex.css'
 import PageTitle from '@/components/PageTitle'
 import { components } from '@/components/MDXComponents'
 import { MDXLayoutRenderer } from 'pliny/mdx-components'
-import { sortPosts, coreContent } from 'pliny/utils/contentlayer'
-import { allWritings, allAuthors } from 'contentlayer/generated'
-import type { Authors, Writings } from 'contentlayer/generated'
+import { sortPosts, coreContent, allCoreContent } from 'pliny/utils/contentlayer'
+import { allWritings as allBlogs, allAuthors } from 'contentlayer/generated'
+import type { Authors, Writings as Blog } from 'contentlayer/generated'
 import PostSimple from '@/layouts/PostSimple'
 import PostLayout from '@/layouts/PostLayout'
 import PostBanner from '@/layouts/PostBanner'
 import { Metadata } from 'next'
 import siteMetadata from '@/data/siteMetadata'
+import { notFound } from 'next/navigation'
 
-const isProduction = process.env.NODE_ENV === 'production'
 const defaultLayout = 'PostLayout'
 const layouts = {
   PostSimple,
@@ -27,7 +27,7 @@ export async function generateMetadata({
   params: { slug: string[] }
 }): Promise<Metadata | undefined> {
   const slug = decodeURI(params.slug.join('/'))
-  const post = allWritings.find((p) => p.slug === slug)
+  const post = allBlogs.find((p) => p.slug === slug)
   const authorList = post?.authors || ['default']
   const authorDetails = authorList.map((author) => {
     const authorResults = allAuthors.find((p) => p.slug === author)
@@ -75,18 +75,23 @@ export async function generateMetadata({
 }
 
 export const generateStaticParams = async () => {
-  const paths = allWritings.map((p) => ({ slug: p.slug.split('/') }))
+  const paths = allBlogs.map((p) => ({ slug: p.slug.split('/') }))
 
   return paths
 }
 
 export default async function Page({ params }: { params: { slug: string[] } }) {
   const slug = decodeURI(params.slug.join('/'))
-  const sortedPosts = sortPosts(allWritings) as Writings[]
-  const postIndex = sortedPosts.findIndex((p) => p.slug === slug)
-  const prev = coreContent(sortedPosts[postIndex + 1])
-  const next = coreContent(sortedPosts[postIndex - 1])
-  const post = sortedPosts.find((p) => p.slug === slug) as Writings
+  // Filter out drafts in production
+  const sortedCoreContents = allCoreContent(sortPosts(allBlogs))
+  const postIndex = sortedCoreContents.findIndex((p) => p.slug === slug)
+  if (postIndex === -1) {
+    return notFound()
+  }
+
+  const prev = sortedCoreContents[postIndex + 1]
+  const next = sortedCoreContents[postIndex - 1]
+  const post = allBlogs.find((p) => p.slug === slug) as Blog
   const authorList = post?.authors || ['default']
   const authorDetails = authorList.map((author) => {
     const authorResults = allAuthors.find((p) => p.slug === author)
@@ -105,25 +110,13 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
 
   return (
     <>
-      {isProduction && post && 'draft' in post && post.draft === true ? (
-        <div className="mt-24 text-center">
-          <PageTitle>
-            Under Construction{' '}
-            <span role="img" aria-label="roadwork sign">
-              🚧
-            </span>
-          </PageTitle>
-        </div>
-      ) : (
-        <>
-          <script type="application/ld+json" suppressHydrationWarning>
-            {JSON.stringify(jsonLd)}
-          </script>
-          <Layout content={mainContent} authorDetails={authorDetails} next={next} prev={prev}>
-            <MDXLayoutRenderer code={post.body.code} components={components} toc={post.toc} />
-          </Layout>
-        </>
-      )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <Layout content={mainContent} authorDetails={authorDetails} next={next} prev={prev}>
+        <MDXLayoutRenderer code={post.body.code} components={components} toc={post.toc} />
+      </Layout>
     </>
   )
 }
