@@ -1,7 +1,7 @@
 import { writeFileSync } from 'fs'
 import GithubSlugger from 'github-slugger'
 import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer.js'
-import { allWritings } from '../.contentlayer/generated/index.mjs'
+import { allWritings as allBlogs } from '../.contentlayer/generated/index.mjs'
 import siteMetadata from '../data/siteMetadata.js'
 
 const isProduction = process.env.NODE_ENV === 'production'
@@ -11,7 +11,7 @@ const isProduction = process.env.NODE_ENV === 'production'
  */
 export async function createTagCount() {
   const tagCount = {}
-  allWritings.forEach((file) => {
+  allBlogs.forEach((file) => {
     if (file.tags && (!isProduction || file.draft !== true)) {
       file.tags.forEach((tag) => {
         const formattedTag = GithubSlugger.slug(tag)
@@ -33,7 +33,7 @@ export async function createSearchIndex() {
   ) {
     writeFileSync(
       `public/${siteMetadata.search.kbarConfig.searchDocumentsPath}`,
-      JSON.stringify(allCoreContent(sortPosts(allWritings)))
+      JSON.stringify(allCoreContent(sortPosts(allBlogs)))
     )
     console.log('Local search index generated...')
   }
