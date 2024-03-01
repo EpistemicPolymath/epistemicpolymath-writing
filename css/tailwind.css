@@ -22,6 +22,15 @@
   @apply my-5;
 }
 
+.prose :where(a):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+  @apply light:text-primary-950 light:hover:text-primary-600;
+}
+
+.prose :where(a):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+   @apply dark:hover:text-primary-50;
+}
+
+
 /* https://stackoverflow.com/questions/61083813/how-to-avoid-internal-autofill-selected-style-to-be-applied */
 input:-webkit-autofill,
 input:-webkit-autofill:focus {

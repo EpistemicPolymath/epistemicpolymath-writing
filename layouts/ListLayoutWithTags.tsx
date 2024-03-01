@@ -87,13 +87,17 @@ export default function ListLayoutWithTags({
           <div className="hidden h-full max-h-screen min-w-[280px] max-w-[280px] flex-wrap overflow-auto rounded bg-gray-50 pt-5 shadow-md dark:bg-gray-900/70 dark:shadow-gray-800/40 sm:flex">
             <div className="px-6 py-4">
               {pathname.startsWith('/writings') ? (
-                <h3 className="font-bold uppercase text-primary-500 light:bg-black">
+                <h3
+                  className="font-bold uppercase light:hover:text-primary-600 light:focus:text-primary-600 dark:text-primary-500 dark:hover:text-primary-50
+                dark:focus:text-primary-50"
+                >
                   All Writings
                 </h3>
               ) : (
                 <Link
                   href={`/writings`}
-                  className="font-bold uppercase text-gray-700 hover:text-primary-500 dark:text-gray-300 dark:hover:text-primary-500"
+                  className="font-bold uppercase light:hover:text-primary-600 light:focus:text-primary-600 dark:text-primary-500 dark:hover:text-primary-50
+                  dark:focus:text-primary-50"
                 >
                   All Writings
                 </Link>
@@ -103,13 +107,13 @@ export default function ListLayoutWithTags({
                   return (
                     <li key={t} className="my-3">
                       {pathname.split('/tags/')[1] === slug(t) ? (
-                        <h3 className="inline px-3 py-2 text-sm font-bold uppercase text-primary-500">
+                        <h3 className="inline px-3 py-2 text-sm font-bold uppercase light:text-primary-600 dark:text-primary-500">
                           {`${t} (${tagCounts[t]})`}
                         </h3>
                       ) : (
                         <Link
                           href={`/tags/${slug(t)}`}
-                          className="px-3 py-2 text-sm font-medium uppercase text-gray-500 hover:text-primary-500 dark:text-gray-300 dark:hover:text-primary-500"
+                          className="px-3 py-2 text-sm font-medium uppercase light:text-gray-500 light:drop-shadow-at light:hover:text-primary-600 light:focus:text-primary-600 dark:text-gray-300 dark:hover:text-primary-500 dark:focus:text-primary-500"
                           aria-label={`View posts tagged ${t}`}
                         >
                           {`${t} (${tagCounts[t]})`}

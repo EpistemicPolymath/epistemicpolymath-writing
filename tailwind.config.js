@@ -37,7 +37,8 @@ module.exports = {
       },
       colors: {
         // https://tailwindcss.com/docs/customizing-colors#using-custom-colors
-        //Accessibility and Tailwin CSS Colors: https://colour-a11y.vercel.app/
+        // Accessibility and Tailwind CSS Colors: https://colour-a11y.vercel.app/
+        // Accessible Colors: http://colorsafe.co/
         primary: {
           50: `#E0F7FA`,
           100: `#D1F8FF`,
@@ -45,11 +46,18 @@ module.exports = {
           300: `#B3FCFD`,
           400: `#A4FDFC`,
           500: `#95FEFB`,
-          600: `#06b6d4`,
+          600: `#2a7ab0`,
           700: `#77FFE9`,
           800: `#68FFE8`,
           900: `#59FFE7`,
-          950: `#4AFFE6`,
+          950: `#000000`,
+        },
+        secondary: {
+          50: `#34495e`,
+          100: `#34415e`,
+          200: `#2a7ab0`,
+          300: '#007faa',
+          400: '#5C5393',
         },
         gray: colors.gray,
       },
@@ -60,6 +68,9 @@ module.exports = {
               color: theme('colors.primary.500'),
               '&:hover': {
                 color: `${theme('colors.primary.600')}`,
+              },
+              '&:focus': {
+                color: `${theme('colors.primary.600')}`
               },
               code: { color: theme('colors.primary.400') },
             },
@@ -96,6 +107,17 @@ module.exports = {
     // https://dev.to/gokhantaskan/adding-a-tailwindcss-light-only-variant-in-a-few-seconds-using-vue-3-and-vueuse-43al
     plugin(({ addVariant }) => {
       addVariant('light', `.light &`)
+    }),
+    // https://www.hyperui.dev/blog/text-shadow-with-tailwindcss
+    plugin(function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          'text-shadow': (value) => ({
+            textShadow: value,
+          }),
+        },
+        { values: theme('textShadow') }
+      )
     }),
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
