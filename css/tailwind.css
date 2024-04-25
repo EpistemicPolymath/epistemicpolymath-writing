@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Add CSS Variables to define the colors for both light and dark theme. Then in your tailwind config, use the CSS variables! https://tailwindcss.com/docs/customizing-colors#using-css-variables */ 
+
 .task-list-item::before {
   @apply hidden;
 }
